@@ -1,8 +1,8 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const url = process.env.MONGODB_CONNECTION_STRING;
-const dbname = process.env.DB_NAME
+const url = 'mongodb+srv://muhammedfazilchengapra:zYKGGlzU5MTIwj04@cluster0.vfe0oe4.mongodb.net/?retryWrites=true&w=majority';
+const dbname = 'products'
 
 const state = {
     db: null,
