@@ -9,6 +9,8 @@ var adminRouter = require('./routes/admin');
 var gestRouter = require('./routes/gest')
 var sellerRouter = require('./routes/seller')
 
+var db=require('./config/connect');
+
 var app = express();
 
 // view engine setup
@@ -26,6 +28,8 @@ app.use('/', gestRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/seller',sellerRouter);
+
+db.connect();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
