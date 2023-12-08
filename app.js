@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars')
+var session = require('express-session')
+
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var gestRouter = require('./routes/gest')
@@ -23,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'Key',cookie:{maxAge:172800000}}))
 
 app.use('/', gestRouter);
 app.use('/user', userRouter);
@@ -47,4 +50,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app; 
