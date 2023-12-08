@@ -5,10 +5,9 @@ var collection=require('../config/collection')
 module.exports={
     doSignup:(data)=>{
         return new Promise(async(resolve,reject)=>{
+            resolve(data)
             data.password= await bcrypt.hash(data.password,10)
-            db.get().collection(collection.ADMIN_COLLECTION).insertOne(data).then((data)=>{
-                resolve(data)
-            })
+            db.get().collection(collection.ADMIN_COLLECTION).insertOne(data)
         })
     },
     doLogin:(data)=>{

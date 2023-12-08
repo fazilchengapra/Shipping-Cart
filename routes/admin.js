@@ -17,6 +17,8 @@ router.post('/', (req, res) => {
     delete req.body.confirmPassword
     helpers.doSignup(req.body).then((data) => {
       req.session.loggin=true
+      req.session.admin=data
+      console.log(req.session.admin)
       res.redirect('/admin')
     })
   }else{
@@ -50,4 +52,4 @@ router.get('/logout',(req,res)=>{
   res.redirect('/')
 })
 
-module.exports = router; 
+module.exports = router;
