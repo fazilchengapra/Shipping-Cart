@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
   if(req.session.loggin){
     res.render('admin/admin',{admin:true,detials:req.session.admin.username})
   }else{
-    res.render('admin/admin-signup', { admin: true})
+    res.render('admin/admin-signup')
   }
 });
 
@@ -28,7 +28,7 @@ router.get('/login',(req,res)=>{
   if(req.session.loggin){
     res.redirect('/admin')
   }else{
-    res.render('admin/admin-login',{admin:true})
+    res.render('admin/admin-login')
   }
 })
 
