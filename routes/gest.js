@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
-
+var db=require('../config/connect')
+var product=require('../helpers/product-helper')
+var collection=require('../config/collection')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('gest/gest-view',{gest:true,message:'<p>This Page Is Empty </P>'});
+    product.getAllProduct().then((allProduct)=>{
+        res.render('gest/gest-view',{gest:true,allProduct});
+      })
 });
 
-module.exports = router;
+module.exports = router; 

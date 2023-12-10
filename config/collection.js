@@ -4,5 +4,6 @@ module.exports={
     PRODUCT_COLLECTION:'products',
     ADMIN_COLLECTION:'admin',
     USER_COLLECTION:'user',
-    SELLER_COLLECTION:'seller'
+    SELLER_COLLECTION:'seller',
+    GDRIVE_FOLDER:'1VixThQp1vanBC8OtPlewkcEcml0X-jml'
 }

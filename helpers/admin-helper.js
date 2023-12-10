@@ -27,7 +27,7 @@ module.exports={
                     }
                 })
             }else{
-                resolve({status:false})
+                resolve({status:false}) 
                 console.log('Login Error') 
             }
         })

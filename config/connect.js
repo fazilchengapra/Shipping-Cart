@@ -26,6 +26,6 @@ module.exports.connect = async function () {
 };
 
 module.exports.get = function () {
-    return state.db;
+    return state.db; 
 };
 

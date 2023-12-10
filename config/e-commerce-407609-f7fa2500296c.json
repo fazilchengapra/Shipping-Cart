@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "e-commerce-407609",
+  "private_key_id": "f7fa2500296c2c6d892ccc6e55fff3ac51a441c1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDqfENha3Fv5Vrt\n7xMLDVOfAVcihVGzjkivkjAnn29z5uF853Kt3MYlxkP79smtdVBVNW0TPo2PLo1V\n1N20L+vt4W2pLV00dwI6oR90PBjtfqCSUA5bOWck72BxyCbfH9U8vGmWY3/0rphw\nA+eaAiVnaiJFQH0DYqvNOd/LCBlGHIXAOZrsjhNSLAI0aeiJyuwrK/vJwZRkmqfy\n2pM6l/oLeCeU+SczxuJ2olSojwOw6mRte+txVv2bYlwAJcqFEZ8JLzZ/o4IQh1Kv\niO30hnHmmeZvjTwboTK94dQ7Ggdvyv1/G2yLtVL7ANHMwUIeibri+miJdtRCo1hO\nN26IPY+NAgMBAAECggEABPbZ8xoAOMLao1lNxj2Bv/GB8LNlAlFX1jh9eYxSU36/\nOGgSYf5NeAESaxryA4qHX/Tq/ANE3ukaTG8hsSHL7Z0bEv/KJu/FHisGO7B0H5pL\ngTagxag4E2yhMdg+zRlBqyrLtdnk8deeVwsMmIZvxefPwB6JEChhbqjn0WVLBZd0\nDBO4rqSsRwuZFNdJWybmIJfvPN63xk7D3gfHIbr59lhR8cgfuEZhG5IpNvTIyNFf\nCS9fWf1/2GRFwR6t4iPoy7g9qtsvLGOWQFZ8L2ISKoDKBELSh6DEBPETViasc3nU\nRcXF5HTnic885cnt7KtzYHXXlnYp/zWJP/anOfCsLQKBgQD6bUTwlHaNBXK9XLlo\nAuFlpqvzb1t3l2VCzzDtjh9UxG/eJiyahM9c5XhmSlR5X+hgiIThJ5a/0iD7FOha\nFNQu+LmlRMYtDc77qt1bB1Wht2sqN4Mqjy5I3fWvEYNp/G7TlgUq/YZoK5oLeh4X\nHJwGINMMiH3arkNhevvHxAV5owKBgQDvtCwmZdRMoswrtmJCxI+eYuiHvlBGPaZe\njWX5JPPQGB/FdvUcNaXhlYQbaQbmT09OlnBSJN49s2i2mUGTrXSpSUNlzM1n/zt3\n3Z7sEWvQ3EAP5+Vj3sOMCCdq3VLDZX8gQf5gNiqqasNYnWmXzynkFD7hMEvW9sA6\nRYOMTHvFDwKBgFZlcE1XyvaoFIfD/6sko0KAl/4qQvIlZyf/dy/dwm1qP/XyUZ0V\niLzR5hHUPwSI1BDJyJ4tHFMdWYeGFQtO+E0kPlgIPB67DtfAgRGwnBhowS4VbMk4\nEI3PFb3KWv4rusiAj1Pfl4lE0aZ4AP2UPzfWBznhtRnG2TQ+S7MFq6XlAoGBAIxm\n2VFoZdC5rqOQAcAgCAt63b7c34I1DCTn56nmVhU2fC2afvmWBuK6RBYWD5+JJufe\nQE4tICu90YDbBcktWV7q9dpD+rCGlFuiaTrW/XLp/3ARoZA85Ac6o3P5zUd8RNkt\nLoVGVPla7a8TDM2J33yjyyz1sAZqo6++Fc5w4jJLAoGAHJRvZ5uQInmhjth/VcU4\nlwvsJeKN0TRCD0NcnxU2stRFlOEgogSxZSdw2Q8+jtXrUKLfEIYX3U5+XLhXWeqr\nvcsfzWfFn2BCavQjJxVl0wCbKVOovS7n0VdbrP5gxax93bhTjyjnBBiXEua9+Zm6\nrar0GGvb/4qT/ljkPNtn6xw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "shopping@e-commerce-407609.iam.gserviceaccount.com",
+  "client_id": "115620653738115109815",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/shopping%40e-commerce-407609.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

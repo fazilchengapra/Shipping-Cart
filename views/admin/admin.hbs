@@ -1,1 +1,29 @@
-<p>This Page is Empty</p>
+<section>
+    <div class="container">
+        <div class="row">
+       <a href="/admin/add-product" class="btn btn-success mt-3 ml-auto">Add</a>
+       </div>
+        <table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Name</th>
+      <th scope="col">Catogary</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each allProduct}}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{this.first_name}}</td>
+      <td>{{this.Catogary}}</td>
+      <td>{{this.Discription}}</td>
+      <td><img style="height: 50px; width:50px;" src="{{this.src}}" alt=""></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+    </div>
+</section>
