@@ -74,11 +74,11 @@ router.get('/add-product', (req, res) => {
 router.post('/add-product',async(req, res) => {
   Image=req.files.image
   if (req.files.image) {
-    await Image.mv('./public/images/'+Image.name)
+    await Image.mv('./'+Image.name)
     Gdrive.call(req.files.image).then((result)=>{
       if(result){
         if(result.status==200){
-          fs.unlinkSync('./public/images/'+Image.name)
+          fs.unlinkSync('./'+Image.name)
           // console.log(result.data.id)
           req.body.src='https://drive.google.com/uc?export=view&id='+result.data.id
           // console.log(req.body.src)

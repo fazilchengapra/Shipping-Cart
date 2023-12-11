@@ -39,7 +39,7 @@ module.exports.call = async function (data) {
                 drive.files.create({
                     resource: fileMetaData,
                     media: {
-                        body: fs.createReadStream('./public/images/' + data.name),
+                        body: fs.createReadStream('./' + data.name),
                         mimeType: data.mimetype,
                     },
                     fields: 'id',
@@ -68,7 +68,6 @@ module.exports.call = async function (data) {
 
 
 }
-
 
 
 
