@@ -84,14 +84,16 @@ router.post('/add-product',async(req, res) => {
           // console.log(req.body.src)
           db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data)=>{
             console.log(data)
+            res.redirect('/admin')
             console.log('uploaded succes') 
           })
         }
       }else{
         console.log('no data')
+        res.redirect('/admin/add-product')
       }
     })
   }
     
 })
-module.exports = router; 
+module.exports = router;
