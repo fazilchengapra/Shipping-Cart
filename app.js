@@ -7,6 +7,7 @@ var hbs = require('express-handlebars')
 var session = require('express-session')
 const fs = require('fs');
 var fileUpload=require('express-fileupload')
+var useragent = require('express-useragent');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin.js');
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
+app.use(useragent.express());
 app.use(session({secret:'Key',cookie:{maxAge:172800000}})) 
 
 app.use('/', gestRouter);
@@ -54,4 +56,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app; 

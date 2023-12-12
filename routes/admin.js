@@ -12,11 +12,13 @@ var product=require('../helpers/product-helper')
 var collection=require('../config/collection')
 
 
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   if (req.session.loggin) {
     product.getAllProduct().then((allProduct)=>{
-      res.render('admin/admin', { admin: true, detials: req.session.admin.username,allProduct })
+      console.log(req.useragent.isMobile)
+      res.render('admin/admin', { admin: true, detials: req.session.admin.username,allProduct,useragent:req.useragent.isMobile})
     })
   } else {
     res.render('admin/admin-signup')

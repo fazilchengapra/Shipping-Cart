@@ -15,6 +15,7 @@
     "express-fileupload": "^1.4.3",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
+    "express-useragent": "^1.0.15",
     "file-type": "^16.5.4",
     "fs": "^0.0.1-security",
     "google-auth-library": "^9.4.1",
