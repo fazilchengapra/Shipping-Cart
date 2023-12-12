@@ -1,8 +1,24 @@
     <section>
         <div class="container mt-5 ">
+            {{#if useragent}}
             <div class="row">
                 {{#each allProduct}}
                 <div class="col-md-3 col-6 p-3">
+                    <div class="card p-3" style="width: 11rem; height:16 rem;">
+                        <img src="{{this.src}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.first_name}}</h5>
+                            {{!-- <p class="card-text">{{this.Discription}}</p> --}}
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="row">
+                {{#each allProduct}}
+                <div class="col-md-3 p-3">
                     <div class="card p-3" style="width: 16rem; height:20 rem;">
                         <img src="{{this.src}}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -14,5 +30,6 @@
                 </div>
                 {{/each}}
             </div>
+            {{/if}}
         </div>
     </section>

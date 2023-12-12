@@ -6,7 +6,7 @@ var collection=require('../config/collection')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     product.getAllProduct().then((allProduct)=>{
-        res.render('gest/gest-view',{gest:true,allProduct});
+        res.render('gest/gest-view',{gest:true,allProduct,useragent:req.useragent.isMobile});
       })
 });
 
