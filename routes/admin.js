@@ -6,20 +6,20 @@ var helpers = require('../helpers/admin-helper');
 var Producthelpers = require('../helpers/product-helper');
 const { ConnectionPoolMonitoringEvent, RunCommandCursor } = require('mongodb');
 const { Console } = require('console');
-var Gdrive=require('../config/Gdrive')
-var db=require('../config/connect')
-var product=require('../helpers/product-helper')
-var collection=require('../config/collection')
-var mail_send=require('../config/send-mail')
+var Gdrive = require('../config/Gdrive')
+var db = require('../config/connect')
+var product = require('../helpers/product-helper')
+var collection = require('../config/collection')
+var mail_send = require('../config/send-mail')
 
 
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   if (req.session.loggin) {
-    product.getAllProduct().then((allProduct)=>{
+    product.getAllProduct().then((allProduct) => {
       console.log(req.useragent.isMobile)
-      res.render('admin/admin', { admin: true, detials: req.session.admin.username,allProduct,useragent:req.useragent.isMobile})
+      res.render('admin/admin', { admin: true, detials: req.session.admin.username, allProduct, useragent: req.useragent.isMobile })
     })
   } else {
     res.render('admin/admin-signup')
@@ -51,9 +51,19 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   helpers.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.loggin = true
+      helpers.doOtp().then((result) => {
+        req.session.admin.otp = result
+        //console.log('OPT : ' + result)
+        mail_send.mail(req.session.admin).then((data) => {
+          if (data) {
+            console.log('Email Success Fully Sended')
+          } else {
+            console.log('Email Not Sended')
+          }
+        })
+      })
       req.session.admin = response.admin
-      res.redirect('/admin')
+      res.render('otp')
     } else {
       req.session.LoggErr = true
       res.render('admin/admin-login', { Err: 'EmailAddress or Password Incorrect' })
@@ -62,42 +72,51 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  mail_send.mail(req.session.admin.email)
   req.session.destroy()
   res.redirect('/')
 })
 
 router.get('/add-product', (req, res) => {
-  if(req.session.loggin){
-    res.render('admin/add-product', { admin: true,detials: req.session.admin.username})
-  }else{
-    res.redirect('/admin') 
+  if (req.session.loggin) {
+    res.render('admin/add-product', { admin: true, detials: req.session.admin.username })
+  } else {
+    res.redirect('/admin')
   }
 })
 
-router.post('/add-product',async(req, res) => {
-  Image=req.files.image
+router.post('/add-product', async (req, res) => {
+  Image = req.files.image
   if (req.files.image) {
-    await Image.mv('./'+Image.name)
-    Gdrive.call(req.files.image).then((result)=>{
-      if(result){
-        if(result.status==200){
-          fs.unlinkSync('./'+Image.name)
+    await Image.mv('./' + Image.name)
+    Gdrive.call(req.files.image).then((result) => {
+      if (result) {
+        if (result.status == 200) {
+          fs.unlinkSync('./' + Image.name)
           // console.log(result.data.id)
-          req.body.src='https://drive.google.com/uc?export=view&id='+result.data.id
+          req.body.src = 'https://drive.google.com/uc?export=view&id=' + result.data.id
           // console.log(req.body.src)
-          db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data)=>{
+          db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
             console.log(data)
             res.redirect('/admin')
-            console.log('uploaded succes') 
+            console.log('uploaded succes')
           })
         }
-      }else{
+      } else {
         console.log('no data')
         res.redirect('/admin/add-product')
       }
     })
   }
-    
+
+})
+
+router.post('/otp', (req, res) => {
+  var otp = req.session.admin.otp;
+  if (otp == req.body.otp) {
+    req.session.loggin = true
+    res.redirect('/admin')
+  } else {
+    res.render('otp', { message: 'Incorrect OTP' })
+  }
 })
 module.exports = router;
