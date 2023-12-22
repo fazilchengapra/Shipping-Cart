@@ -1,3 +1,24 @@
+{{#if signup}}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <h2 class="mb-4">Enter OTP</h2>
+      {{#if message}}
+      <p>{{message}}</p>
+      {{/if}}
+      <!-- OTP Form -->
+      <form action="/admin/signup-otp" method="post">
+        <div class="form-group">
+          <label for="otpInput">Enter OTP</label>
+          <input type="text" class="form-control" name="otp" id="otpInput" placeholder="Enter your OTP" maxlength="6" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{{else}}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-4">
@@ -17,3 +38,4 @@
     </div>
   </div>
 </div>
+{{/if}}
