@@ -15,12 +15,22 @@ module.exports.mail = (data) => {
       }
     });
 
+    const htmlContent = `
+      <html>
+        <body>
+          <h1>Hello, ${data.username}!</h1>
+          <p>Your OTP is ${data.otp}</p>
+          <p>This otp your secret one time password dont share this password</p>
+        </body>
+      </html>
+    `
+
     // Email content
     const mailOptions = {
       from: collection.MAIL_ADDRESS, // Sender's email address
       to: data.email, // Recipient's email address
       subject: 'Dont Share',
-      text: 'Your one time password is '+data.otp
+      html: htmlContent
     };
 
     // Send email
