@@ -10,6 +10,7 @@ var Gdrive=require('../config/Gdrive')
 var db=require('../config/connect')
 var product=require('../helpers/product-helper')
 var collection=require('../config/collection')
+var mail_send=require('../config/send-mail')
 
 
 
@@ -61,6 +62,7 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
+  mail_send.mail(req.session.admin.email)
   req.session.destroy()
   res.redirect('/')
 })
@@ -69,7 +71,7 @@ router.get('/add-product', (req, res) => {
   if(req.session.loggin){
     res.render('admin/add-product', { admin: true,detials: req.session.admin.username})
   }else{
-    res.redirect('/admin')
+    res.redirect('/admin') 
   }
 })
 

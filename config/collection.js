@@ -5,5 +5,7 @@ module.exports={
     ADMIN_COLLECTION:'admin',
     USER_COLLECTION:'user',
     SELLER_COLLECTION:'seller',
-    GDRIVE_FOLDER:'1VixThQp1vanBC8OtPlewkcEcml0X-jml'
+    GDRIVE_FOLDER:'1VixThQp1vanBC8OtPlewkcEcml0X-jml',
+    MAIL_ADDRESS:'pesmypesmy@gmail.com',
+    MAIL_PASS:'jryohfjvphlvungx'
 }
