@@ -18,7 +18,6 @@ var mail_send = require('../config/send-mail')
 router.get('/', function (req, res, next) {
   if (req.session.loggin) {
     product.getAllProduct().then((allProduct) => {
-      console.log(req.useragent.isMobile)
       res.render('admin/admin', { admin: true, detials: req.session.admin.username, allProduct, useragent: req.useragent.isMobile })
     })
   } else {
@@ -29,7 +28,6 @@ router.get('/', function (req, res, next) {
 router.post('/', (req, res) => {
   if (req.body.password === req.body.confirmPassword) {
     delete req.body.confirmPassword
-    console.log(req.body)
     req.session.admin = req.body
     delete req.body
     helpers.doOtp().then((result) => {
@@ -62,14 +60,14 @@ router.post('/login', (req, res) => {
     if (response.status) {
       helpers.doOtp().then((result) => {
         req.session.admin.otp = result
-        //console.log('OPT : ' + result)
-        mail_send.mail(req.session.admin).then((data) => {
-          if (data) {
-            console.log('Email Success Fully Sended')
-          } else {
-            console.log('Email Not Sended')
-          }
-        })
+        mail_send.mail(req.session.admin)
+        // .then((data) => {
+        //   if (data) {
+        //     console.log('Email Success Fully Sended')
+        //   } else {
+        //     console.log('Email Not Sended')
+        //   }
+        // })
       })
       req.session.admin = response.admin
       res.render('otp')
@@ -105,13 +103,10 @@ router.post('/add-product', async (req, res) => {
           req.body.src = 'https://drive.google.com/uc?export=view&id=' + result.data.id
           // console.log(req.body.src)
           db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
-            console.log(data)
             res.redirect('/admin')
-            console.log('uploaded succes')
           })
         }
       } else {
-        console.log('no data')
         res.redirect('/admin/add-product')
       }
     })
@@ -135,7 +130,6 @@ router.post('/signup-otp', (req, res) => {
     helpers.doSignup(req.session.admin).then((data) => {
       req.session.loggin = true
       req.session.admin = data
-      console.log(req.session.admin)
       res.redirect('/admin')
     })
   }else{

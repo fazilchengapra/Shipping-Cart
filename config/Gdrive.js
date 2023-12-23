@@ -61,7 +61,7 @@ module.exports.call = async function (data) {
             })
             .catch(error => {
                 // Handle errors
-                console.error("Error:", error);
+                // console.error("Error:", error);
                 outerReject(error);
             });
     });
