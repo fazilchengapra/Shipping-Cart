@@ -28,22 +28,28 @@ router.get('/', function (req, res, next) {
 router.post('/', (req, res) => {
   if (req.body.password === req.body.confirmPassword) {
     delete req.body.confirmPassword
-    req.session.admin = req.body
-    delete req.body
-    helpers.doOtp().then((result) => {
-      if (result) {
-        req.session.admin.otp=result
-        mail_send.mail(req.session.admin).then((data) => {
-          if (data) {
-            res.render('otp', { signup: true })
-          } else {
-            res.redirect('/', { error: 'Email is incorrect' })
+    helpers.doLogin(req.body).then((response) => {
+      if (response.status) {
+        res.render('admin/admin-signup', { message: 'This Email Address is Used Another Person' })
+      } else {
+        req.session.admin = req.body
+        delete req.body
+        helpers.doOtp().then((result) => {
+          if (result) {
+            req.session.admin.otp = result
+            mail_send.mail(req.session.admin).then((data) => {
+              if (data) {
+                res.render('otp', { signup: true })
+              } else {
+                res.redirect('/', { error: 'Email is incorrect' })
+              }
+            })
           }
         })
       }
     })
   } else {
-    res.render('admin/admin-signup', { Error: 'Dont match confirm pass' })
+    res.render('admin/admin-signup', { Error: 'Dont match confirm pass' }) 
   }
 })
 
@@ -125,15 +131,15 @@ router.post('/otp', (req, res) => {
   }
 })
 router.post('/signup-otp', (req, res) => {
-  if(req.session.admin.otp==req.body.otp){
+  if (req.session.admin.otp == req.body.otp) {
     delete req.session.admin.otp
     helpers.doSignup(req.session.admin).then((data) => {
       req.session.loggin = true
       req.session.admin = data
       res.redirect('/admin')
     })
-  }else{
-    res.render('otp',{signup:true,message:'You Entered OTP is not Correct'})
+  } else {
+    res.render('otp', { signup: true, message: 'You Entered OTP is not Correct' })
   }
 })
 module.exports = router;

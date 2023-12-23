@@ -21,15 +21,15 @@ module.exports = {
                         response.admin = admin
                         response.status = true
                         resolve(response)
-                        console.log('Login Succesfully')
+                        // console.log('Login Succesfully')
                     } else {
                         resolve({ status: false })
-                        console.log('Login Error')
+                        // console.log('Login Error')
                     }
                 })
             } else {
                 resolve({ status: false })
-                console.log('Login Error')
+                // console.log('Login Error')
             }
         })
     },
