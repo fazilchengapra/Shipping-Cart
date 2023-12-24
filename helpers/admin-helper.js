@@ -1,7 +1,9 @@
 var bcrypt = require('bcrypt')
 var db = require('../config/connect')
 var collection = require('../config/collection')
+var objectId = require('mongodb').ObjectId
 const { resolve, reject } = require('promise')
+const { response } = require('express')
 
 module.exports = {
     doSignup: (data) => {
@@ -36,6 +38,13 @@ module.exports = {
     doOtp: () => {
         return new Promise((resolve, reject) => {
             resolve(Math.floor(1000 + Math.random() * 9000).toString())
+        })
+    },
+    doDeleteProduct:(proid)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id: new objectId(proid)}).then((response)=>{
+                resolve(response)
+            }) 
         })
     }
 }

@@ -11,7 +11,7 @@ var data = {
 
 }
 
-module.exports.call = async function (data) {
+module.exports.call = async function (data, status) {
     return new Promise((outerResolve, outerReject) => {
         // A Function that can provide access to Google Drive API
         async function authorize() {
@@ -35,20 +35,33 @@ module.exports.call = async function (data) {
                     name: data.name,
                     parents: [collection.GDRIVE_FOLDER]
                 };
+                if (status.fileCreate) {
+                    drive.files.create({
+                        resource: fileMetaData,
+                        media: {
+                            body: fs.createReadStream('./' + data.name),
+                            mimeType: data.mimetype,
+                        },
+                        fields: 'id',
+                    }, function (error, file) {
+                        if (error) {
+                            return innerReject(error);
+                        }
+                        innerResolve(file);
+                    });
 
-                drive.files.create({
-                    resource: fileMetaData,
-                    media: {
-                        body: fs.createReadStream('./' + data.name),
-                        mimeType: data.mimetype,
-                    },
-                    fields: 'id',
-                }, function (error, file) {
-                    if (error) {
-                        return innerReject(error);
-                    }
-                    innerResolve(file);
-                });
+                } else if (status.updateFile) {
+
+                } else {
+                    drive.files.delete({
+                        fileId: data,
+                    }, function (error, file) {
+                        if (error) {
+                            return innerReject(error);
+                        }
+                        innerResolve(file);
+                    });
+                }
             });
         }
 

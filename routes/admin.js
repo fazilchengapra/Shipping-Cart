@@ -12,6 +12,11 @@ var product = require('../helpers/product-helper')
 var collection = require('../config/collection')
 var mail_send = require('../config/send-mail')
 
+const status = {
+  fileCreate: false,
+  fileUpdate: false,
+  fileDelete: false
+}
 
 
 /* GET users listing. */
@@ -49,7 +54,7 @@ router.post('/', (req, res) => {
       }
     })
   } else {
-    res.render('admin/admin-signup', { Error: 'Dont match confirm pass' }) 
+    res.render('admin/admin-signup', { Error: 'Dont match confirm pass' })
   }
 })
 
@@ -64,19 +69,21 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   helpers.doLogin(req.body).then((response) => {
     if (response.status) {
-      helpers.doOtp().then((result) => {
-        req.session.admin.otp = result
-        mail_send.mail(req.session.admin)
-        // .then((data) => {
-        //   if (data) {
-        //     console.log('Email Success Fully Sended')
-        //   } else {
-        //     console.log('Email Not Sended')
-        //   }
-        // })
-      })
+      // helpers.doOtp().then((result) => {
+      //   req.session.admin.otp = result
+      //   mail_send.mail(req.session.admin)
+      //   // .then((data) => {
+      //   //   if (data) {
+      //   //     console.log('Email Success Fully Sended')
+      //   //   } else {
+      //   //     console.log('Email Not Sended')
+      //   //   }
+      //   // })
+      // })
       req.session.admin = response.admin
-      res.render('otp')
+      req.session.loggin=true
+      res.redirect('/admin')
+      // res.render('otp')
     } else {
       req.session.LoggErr = true
       res.render('admin/admin-login', { Err: 'EmailAddress or Password Incorrect' })
@@ -101,11 +108,13 @@ router.post('/add-product', async (req, res) => {
   Image = req.files.image
   if (req.files.image) {
     await Image.mv('./' + Image.name)
-    Gdrive.call(req.files.image).then((result) => {
+    status.fileCreate = true
+    Gdrive.call(req.files.image, status).then((result) => {
       if (result) {
         if (result.status == 200) {
           fs.unlinkSync('./' + Image.name)
           // console.log(result.data.id)
+          req.body.imageId = result.data.id
           req.body.src = 'https://drive.google.com/uc?export=view&id=' + result.data.id
           // console.log(req.body.src)
           db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
@@ -121,14 +130,16 @@ router.post('/add-product', async (req, res) => {
 })
 
 router.post('/otp', (req, res) => {
-  var otp = req.session.admin.otp;
-  if (otp == req.body.otp) {
-    delete req.session.admin.otp
-    req.session.loggin = true
-    res.redirect('/admin')
-  } else {
-    res.render('otp', { message: 'Incorrect OTP' })
-  }
+  req.session.loggin = true
+  res.redirect('/admin')
+  // var otp = req.session.admin.otp;
+  // if (otp == req.body.otp) {
+  //   delete req.session.admin.otp
+  //   // req.session.loggin = true
+  //   res.redirect('/admin')
+  // } else {
+  //   res.render('otp', { message: 'Incorrect OTP' })
+  // }
 })
 router.post('/signup-otp', (req, res) => {
   if (req.session.admin.otp == req.body.otp) {
@@ -142,4 +153,18 @@ router.post('/signup-otp', (req, res) => {
     res.render('otp', { signup: true, message: 'You Entered OTP is not Correct' })
   }
 })
-module.exports = router;
+
+router.get('/edit-product', (req, res) => {
+  res.redirect('/admin')
+})
+
+router.get('/remove-product/:id/:imageId', (req, res) => {
+  Gdrive.call(req.params.imageId, status.fileDelete = true).then((result) => {
+    if (result.status == 204) {
+      helpers.doDeleteProduct(req.params.id).then((result) => { 
+        res.redirect('/admin')
+      })
+    } 
+  })
+})
+module.exports = router; 
