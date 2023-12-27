@@ -1,0 +1,39 @@
+<section>
+    <form action="/admin/edit-product/{{product._id}}" method="post" role="form" enctype="multipart/form-data">
+        <legend>Edit Product Information Here</legend>
+
+        <div class="form-group">
+            <label for="first_name">Name</label>
+            <input type="text" class="form-control" name="Name" id="first_name" placeholder="First Name" value="{{product.Name}}" >
+        </div>
+
+        <div class="form-group">
+            <label for="Catogary">Catogary</label>
+            <input type="text" class="form-control" name="Catogary" id="Catogary" placeholder="Catogary" value="{{product.Catogary}}" >
+        </div>
+
+        <div class="form-group">
+            <label for="Discription">Discription</label>
+            <input type="text" class="form-control" name="Discription" id="Discription" placeholder="Discription" value="{{product.Discription}}">
+        </div>
+
+        <div class="mb-3">
+            <img src="{{product.src}}" alt="" style="width: 100px; height:auto">
+            <input class="form-control" name="image" type="file" id="formFile">
+        </div>
+
+        <div class="form-group">
+            <input hidden type="text" class="form-control" name="imageId" id="fileId" placeholder="Discription" value="{{product.imageId}}">
+        </div>
+
+         <div class="form-group">
+            <input hidden type="text" class="form-control" name="src" id="fileId" placeholder="Discription" value="{{product.src}}">
+        </div>
+
+        <div class="form-group">
+            <input hidden type="text" class="form-control" name="Description" id="fileId" placeholder="Discription" value="{{product.Description}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</section>

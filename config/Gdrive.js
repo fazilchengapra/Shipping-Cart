@@ -7,11 +7,8 @@ const { resolve } = require('path');
 const { reject } = require('promise');
 const { file } = require('googleapis/build/src/apis/file');
 const SCOPE = ['https://www.googleapis.com/auth/drive'];
-var data = {
 
-}
-
-module.exports.call = async function (data, status) {
+module.exports.call = async function (data, status, proId) {
     return new Promise((outerResolve, outerReject) => {
         // A Function that can provide access to Google Drive API
         async function authorize() {
@@ -50,14 +47,35 @@ module.exports.call = async function (data, status) {
                         innerResolve(file);
                     });
 
-                } else if (status.updateFile) {
+                } else if (status.fileUpdate) {
+                    // Update the existing file
+                    // console.log('called function');
+                    let fileMetaData = {
+                        name: data.name,
+                        addParents: [collection.GDRIVE_FOLDER],
+                        removeParents: [collection.GDRIVE_FOLDER],
+                    };
+                    drive.files.update({
+                        fileId: proId,
+                        resource: fileMetaData,
+                        media: {
+                            body: fs.createReadStream('./' + data.name),
+                            mimeType: data.mimetype,
+                        },
+                        fields: 'id',
+                    }, function (error, file) {
+                        if (error) {
+                            return innerReject(error); 
+                        }
+                        innerResolve(file);
+                    });
 
                 } else {
                     drive.files.delete({
                         fileId: data,
                     }, function (error, file) {
                         if (error) {
-                            return innerReject(error);
+                            return innerReject(error); 
                         }
                         innerResolve(file);
                     });

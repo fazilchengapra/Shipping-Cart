@@ -46,5 +46,27 @@ module.exports = {
                 resolve(response)
             }) 
         })
+    },
+    getProductDetials:(proid)=>{
+        return new Promise ((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:new objectId(proid)}).then((result)=>{
+                resolve(result)
+            })
+        })
+    },
+    updateProduct:(data,proId)=>{
+        return new Promise ((resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:new objectId(proId)},{
+                $set:{
+                    Name:data.Name,
+                    Catogary:data.Catogary,
+                    Description:data.Description,
+                    imageId:data.imageId,
+                    src:data.src
+                }
+            }).then((result)=>{
+                resolve(result)
+            })
+        })
     }
 }
