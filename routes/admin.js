@@ -188,6 +188,7 @@ router.post('/edit-product/:proId', async (req, res) => {
         req.body.src = 'https://drive.google.com/uc?export=view&id=' + data.data.id
         helpers.updateProduct(req.body,req.params.proId).then((data)=>{
           res.redirect('/admin') 
+          status.fileCreate=false
         })
       })
     }
