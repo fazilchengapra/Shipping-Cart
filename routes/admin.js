@@ -82,7 +82,7 @@ router.post('/login', (req, res) => {
       //   // })
       // })
       req.session.admin = response.admin
-      req.session.loggin=true
+      req.session.loggin = true
       res.redirect('/admin')
       // res.render('otp')
     } else {
@@ -106,7 +106,7 @@ router.get('/add-product', (req, res) => {
 })
 
 router.post('/add-product', async (req, res) => {
-  if (req.files.image) {
+  if (req.files) {
     var Image = req.files.image
     await Image.mv('./' + Image.name)
     status.fileCreate = true
@@ -114,18 +114,21 @@ router.post('/add-product', async (req, res) => {
       if (result) {
         if (result.status == 200) {
           fs.unlinkSync('./' + Image.name)
-          // console.log(result.data.id)
           req.body.imageId = result.data.id
           req.body.src = 'https://drive.google.com/uc?export=view&id=' + result.data.id
-          // console.log(req.body.src)
           db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
             res.redirect('/admin')
-            status.fileCreate=false
+            status.fileCreate = false
           })
         }
       } else {
         res.redirect('/admin/add-product')
       }
+    })
+  } else {
+    db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
+      res.redirect('/admin')
+      status.fileCreate = false
     })
   }
 
@@ -156,41 +159,57 @@ router.post('/signup-otp', (req, res) => {
   }
 })
 
-router.get('/edit-product/:id', async(req, res) => {
-  let product=await adminHelper.getProductDetials(req.params.id)
-  res.render('admin/edit-product',{product})
+router.get('/edit-product/:id', async (req, res) => {
+  let product = await adminHelper.getProductDetials(req.params.id)
+  res.render('admin/edit-product', { product })
 })
 
-router.post('/edit-product/:proId',async(req,res)=>{
-  console.log(req.files.image)
-  if(req.files.image){
+router.post('/edit-product/:proId', async (req, res) => {
+  if (req.files) {
     var Image = req.files.image
-    console.log(Image);
     await Image.mv('./' + Image.name)
-    status.fileUpdate=true
-    Gdrive.call(Image,status,req.body.imageId).then((data)=>{
-      if(data.status==200){
+    if (req.body.imageId) {
+      status.fileUpdate = true
+      Gdrive.call(Image, status, req.body.imageId).then((data) => {
+        if (data.status == 200) {
+          helpers.updateProduct(req.body, req.params.proId).then((data) => {
+            status.fileUpdate = false
+            fs.unlinkSync('./' + Image.name)
+            res.redirect('/admin')
+          })
+        }
+      })
+
+    } else {
+      status.fileCreate = true
+      Gdrive.call(req.files.image, status).then((data) => {
+        fs.unlinkSync('./' + Image.name)
+        req.body.imageId = data.data.id
+        req.body.src = 'https://drive.google.com/uc?export=view&id=' + data.data.id
         helpers.updateProduct(req.body,req.params.proId).then((data)=>{
-          console.log(data)
-          status.fileUpdate=false
+          res.redirect('/admin') 
         })
-      }
-      res.redirect('/admin') 
-    })
-  }else{
-    helpers.updateProduct(req.body,req.params.proId).then((data)=>{
+      })
+    }
+  } else {
+    helpers.updateProduct(req.body, req.params.proId).then((data) => {
       res.redirect('/admin')
     })
   }
 })
 
 router.get('/remove-product/:id/:imageId', (req, res) => {
-  Gdrive.call(req.params.imageId).then((result) => { 
+  Gdrive.call(req.params.imageId, status.fileDelete = true).then((result) => {
     if (result.status == 204) {
       helpers.doDeleteProduct(req.params.id).then((result) => {
         res.redirect('/admin')
-      }) 
+      })
     }
+  })
+})
+router.get('/remove-product/:id', (req, res) => {
+  helpers.doDeleteProduct(req.params.id).then((result) => {
+    res.redirect('/admin')
   })
 })
 module.exports = router; 

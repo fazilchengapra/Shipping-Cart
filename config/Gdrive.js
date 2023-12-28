@@ -33,6 +33,7 @@ module.exports.call = async function (data, status, proId) {
                     parents: [collection.GDRIVE_FOLDER]
                 };
                 if (status.fileCreate) {
+                    console.log('called')
                     drive.files.create({
                         resource: fileMetaData,
                         media: {
