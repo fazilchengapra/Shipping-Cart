@@ -1,3 +1,31 @@
+{{#if useragent}}
+<section>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
+    <div class="container-fluid">
+      <form class="form-inline  my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <div class="navbar-brand navbar-brand-center" style="flex: 8; text-align: center;">
+        <a href="" style="text-decoration: none;" class="text-dark"><span class="h3">LuxeHub</span></a>
+      </div>
+      <button class="navbar-toggler" style="width: 50px;height: auto;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a href="" class="nav-link active text-primary" aria-current="page">Login <i class="bi bi-person" style="font-size: 20px;"></i></a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link active text-danger">Cart <i class="bi bi-cart"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</section>
+{{else}}
 <section>
   <nav class="navbar navbar-expand-lg navbar-light bg-light col-12">
     <div class="container-fluid">
@@ -25,3 +53,4 @@
     </div>
   </nav>
 </section>
+{{/if}}
