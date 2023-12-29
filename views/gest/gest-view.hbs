@@ -2,10 +2,11 @@
 <div class="row">
     {{#each allProduct}}
     <div class="col-6 pl-4">
-        <div class="card mt-4 p-0" style="width: 10.6rem; height:13rem;">
+        <div class="card mt-4 p-0" style="width: 10.6rem; height:14rem;">
             <img src="{{this.src}}" class="card-img-top" alt="..." style="width: 120px; height: 120px;">
             <div class="card-body">
                 <p class="card-text">{{this.Name}}</p>
+                <p class="text-success"><del class="text-dark">₹{{this.First_price}}</del> ₹{{this.Last_price}}</p>
             </div>
         </div>
     </div>

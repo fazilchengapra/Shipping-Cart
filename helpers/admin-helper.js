@@ -62,7 +62,9 @@ module.exports = {
                     Catogary:data.Catogary,
                     Discription:data.Discription,
                     imageId:data.imageId,
-                    src:data.src
+                    src:data.src,
+                    First_price:data.First_price,
+                    Last_price:data.Last_price
                 }
             }).then((result)=>{
                 resolve(result)

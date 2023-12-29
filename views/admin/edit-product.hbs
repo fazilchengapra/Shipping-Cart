@@ -17,6 +17,18 @@
             <input type="text" class="form-control" name="Discription" id="Discription" placeholder="Discription" value="{{product.Discription}}">
         </div>
 
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="inputEmail4">First Price</label>
+                <input type="number" class="form-control" name="First_price" id="inputEmail4" placeholder="First Price" value="{{product.First_price}}">
+            </div>
+
+            <div class="form-group col-6">
+                <label for="inputEmail4">Last Price</label>
+                <input type="number" class="form-control" name="Last_price" id="inputEmail4" placeholder="Last Price" value="{{product.Last_price}}">
+            </div>
+        </div>
+
         <div class="mb-3">
             <img src="{{product.src}}" alt="" style="width: 100px; height:auto">
             <input class="form-control" name="image" type="file" id="formFile">
