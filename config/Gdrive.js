@@ -71,7 +71,7 @@ module.exports.call = async function (data, status, proId) {
                         innerResolve(file);
                     });
 
-                } else {
+                } else  if(status.fileDelete){
                     drive.files.delete({
                         fileId: data,
                     }, function (error, file) {

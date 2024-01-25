@@ -1,6 +1,6 @@
-<section>
+<div class="form-box mt-4">
+    <h1>PRODUCT INFORMATION HERE</h1>
     <form action="/admin/add-product" method="post" role="form" enctype="multipart/form-data">
-        <legend>Enter Product Information Here</legend>
 
         <div class="form-group">
             <label for="first_name">Name</label>
@@ -19,12 +19,12 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="inputEmail4">First Price</label>
-                <input type="number" class="form-control" name="First_price" id="inputEmail4" placeholder="Email">
+                <input type="number" class="form-control" name="First_price" id="inputEmail4" placeholder="First Price">
             </div>
 
             <div class="form-group col-6">
                 <label for="inputEmail4">Last Price</label>
-                <input type="number" class="form-control" name="Last_price" id="inputEmail4" placeholder="Email">
+                <input type="number" class="form-control" name="Last_price" id="inputEmail4" placeholder="Last Price">
             </div>
         </div>
 
@@ -33,6 +33,33 @@
             <input class="form-control" name="image" type="file" id="formFile">
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary col-md-12">Submit</button>
     </form>
-</section>
+</div>
+
+<style>
+    body {
+        background:rgb(249, 255, 255);
+    }
+    label{
+        font-weight: bold;
+    }
+
+    .form-box {
+        max-width: 1000px;
+        margin: auto;
+        padding: 50px;
+        background: #ffffff;
+        border: 10px solid #f2f2f2;
+    }
+
+    h1,
+    p {
+        text-align: center;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+</style>

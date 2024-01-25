@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
-    <a href="/admin/add-product" class="btn btn-success mt-3 ml-auto">Add</a>
+    <div class="col-12">
+      <a href="/admin/add-product" class="btn btn-success mt-3 ml-auto w-100">Add Product</a>
+    </div>
   </div>
   {{#unless useragent}}
   <table class="table mt-5">
@@ -11,6 +13,7 @@
         <th scope="col">Catogary</th>
         <th scope="col">Description</th>
         <th scope="col">Image</th>
+        <th scope="col">Edit&Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -43,7 +46,7 @@
     <tbody>
       {{#each allProduct}}
       <tr>
-        <td>{{this.first_name}}</td>
+        <td>{{this.Name}}</td>
         <td>{{this.Catogary}}</td>
         <td>{{this.Discription}}</td>
         <td><img style="height: 50px; width:50px;" src="{{this.src}}" alt=""></td>

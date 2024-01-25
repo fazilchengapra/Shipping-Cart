@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var db=require('../config/connect')
 var product=require('../helpers/product-helper')
-var collection=require('../config/collection')
+var collection=require('../config/collection');
+const { logging } = require('googleapis/build/src/apis/logging');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     product.getAllProduct().then((allProduct)=>{
@@ -10,4 +11,4 @@ router.get('/', function(req, res, next) {
       })
 }); 
 
-module.exports = router; 
+module.exports = router;

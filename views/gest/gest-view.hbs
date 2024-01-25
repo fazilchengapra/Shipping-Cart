@@ -16,14 +16,17 @@
 {{else}}
 <div class="row">
     {{#each allProduct}}
-    <div class="col-md-2 pl-4">
-        <div class="card mt-4" style="width: 12rem; height:20rem;">
+    <div class="col-md-2 pl-4" >
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="/{{this._id}}/{{this._id}}">
+            <div class="card mt-4" style="width: 12rem; height:20rem;">
             <img src="{{this.src}}" class="card-img-top" alt="..." style="width: 180px; height: 170px;">
             <div class="card-body">
-                <p class="card-text">{{this.Name}}</p>
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <p class="card-text text-dark text-center">{{this.Name}}</p>
+                <p class="text-success"><del class="text-dark">₹{{this.First_price}}</del> ₹{{this.Last_price}}</p>
+                <a href="#" class="btn btn-primary btn-center">Add to Cart</a>
             </div>
         </div>
+        </a>
     </div>
     {{/each}}
 </div>

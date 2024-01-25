@@ -16,7 +16,9 @@ const adminHelper = require('../helpers/admin-helper');
 const status = {
   fileCreate: false,
   fileUpdate: false,
-  fileDelete: false
+  fileDelete: false,
+  addCarousel:false,
+  deleteCarousel:false 
 }
 
 
@@ -115,7 +117,7 @@ router.post('/add-product', async (req, res) => {
         if (result.status == 200) {
           fs.unlinkSync('./' + Image.name)
           req.body.imageId = result.data.id
-          req.body.src = 'https://drive.google.com/uc?export=view&id=' + result.data.id
+          req.body.src = 'https://drive.google.com/thumbnail?id=' + result.data.id
           db.get().collection(collection.PRODUCT_COLLECTION).insertOne(req.body).then((data) => {
             res.redirect('/admin')
             status.fileCreate = false
@@ -174,7 +176,7 @@ router.post('/edit-product/:proId', async (req, res) => {
         if (data.status == 200) {
           helpers.updateProduct(req.body, req.params.proId).then((data) => {
             status.fileUpdate = false
-            fs.unlinkSync('./' + Image.name)
+            fs.unlinkSync('./' + Image.name) 
             res.redirect('/admin')
           })
         }
@@ -185,7 +187,7 @@ router.post('/edit-product/:proId', async (req, res) => {
       Gdrive.call(req.files.image, status).then((data) => {
         fs.unlinkSync('./' + Image.name)
         req.body.imageId = data.data.id
-        req.body.src = 'https://drive.google.com/uc?export=view&id=' + data.data.id
+        req.body.src = 'https://drive.google.com/thumbnail?id=' + data.data.id
         helpers.updateProduct(req.body,req.params.proId).then((data)=>{
           res.redirect('/admin') 
           status.fileCreate=false 
@@ -208,9 +210,25 @@ router.get('/remove-product/:id/:imageId', (req, res) => {
     }
   })
 })
+
 router.get('/remove-product/:id', (req, res) => {
   helpers.doDeleteProduct(req.params.id).then((result) => {
     res.redirect('/admin')
-  })
+  }) 
 })
+
+router.get('/add-carousel',(req,res)=>{ 
+  res.render('admin/add-carousel')
+})
+
+router.post('/add-carousel',async(req,res)=>{
+  if(req.files){
+    var Image=req.files.image
+    await Image.mv('./'+Image.name)
+    Gdrive.call(req.body,status.addCarousel=true).then((result)=>{
+      res.redirect('/admin')
+    })
+  }
+})
+
 module.exports = router; 

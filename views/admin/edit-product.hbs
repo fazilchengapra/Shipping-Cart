@@ -1,51 +1,90 @@
 <section>
-    <form action="/admin/edit-product/{{product._id}}" method="post" role="form" enctype="multipart/form-data">
-        <legend>Edit Product Information Here</legend>
+    <div class="form-box mt-4">
+        <form action="/admin/edit-product/{{product._id}}" method="post" role="form" enctype="multipart/form-data">
+            <h1>Edit Product Information Here</h1>
 
-        <div class="form-group">
-            <label for="first_name">Name</label>
-            <input type="text" class="form-control" name="Name" id="first_name" placeholder="First Name" value="{{product.Name}}" >
-        </div>
-
-        <div class="form-group">
-            <label for="Catogary">Catogary</label>
-            <input type="text" class="form-control" name="Catogary" id="Catogary" placeholder="Catogary" value="{{product.Catogary}}" >
-        </div>
-
-        <div class="form-group">
-            <label for="Discription">Discription</label>
-            <input type="text" class="form-control" name="Discription" id="Discription" placeholder="Discription" value="{{product.Discription}}">
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-6">
-                <label for="inputEmail4">First Price</label>
-                <input type="number" class="form-control" name="First_price" id="inputEmail4" placeholder="First Price" value="{{product.First_price}}">
+            <div class="form-group">
+                <label for="first_name">Name</label>
+                <input type="text" class="form-control" name="Name" id="first_name" placeholder="First Name"
+                    value="{{product.Name}}">
             </div>
 
-            <div class="form-group col-6">
-                <label for="inputEmail4">Last Price</label>
-                <input type="number" class="form-control" name="Last_price" id="inputEmail4" placeholder="Last Price" value="{{product.Last_price}}">
+            <div class="form-group">
+                <label for="Catogary">Catogary</label>
+                <input type="text" class="form-control" name="Catogary" id="Catogary" placeholder="Catogary"
+                    value="{{product.Catogary}}">
             </div>
-        </div>
 
-        <div class="mb-3">
-            <img src="{{product.src}}" alt="" style="width: 100px; height:auto">
-            <input class="form-control" name="image" type="file" id="formFile">
-        </div>
+            <div class="form-group">
+                <label for="Discription">Discription</label>
+                <textarea class="form-control" id="message" name="Discription"
+                    placeholder="Discription">{{product.Discription}}</textarea>
+            </div>
 
-        <div class="form-group">
-            <input hidden type="text" class="form-control" name="imageId" id="fileId" placeholder="Discription" value="{{product.imageId}}">
-        </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="inputEmail4">First Price</label>
+                    <input type="number" class="form-control" name="First_price" id="inputEmail4"
+                        placeholder="First Price" value="{{product.First_price}}">
+                </div>
 
-         <div class="form-group">
-            <input hidden type="text" class="form-control" name="src" id="fileId" placeholder="Discription" value="{{product.src}}">
-        </div>
+                <div class="form-group col-6">
+                    <label for="inputEmail4">Last Price</label>
+                    <input type="number" class="form-control" name="Last_price" id="inputEmail4"
+                        placeholder="Last Price" value="{{product.Last_price}}">
+                </div>
+            </div>
 
-        <div class="form-group">
-            <input hidden type="text" class="form-control" name="Description" id="fileId" placeholder="Discription" value="{{product.Description}}">
-        </div>
+            <div class="mb-3">
+                <img src="{{product.src}}" alt="" style="width: 100px; height:auto">
+                <input class="form-control" name="image" type="file" id="formFile" accept=".jpg,.png">
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <div class="form-group">
+                <input hidden type="text" class="form-control" name="imageId" id="fileId" placeholder="Discription"
+                    value="{{product.imageId}}">
+            </div>
+
+            <div class="form-group">
+                <input hidden type="text" class="form-control" name="src" id="fileId" placeholder="Discription"
+                    value="{{product.src}}">
+            </div>
+
+            <div class="form-group">
+                <input hidden type="text" class="form-control" name="Description" placeholder="Discription"
+                    value="{{product.Description}}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </section>
+
+<style>
+    body {
+        background: rgb(249, 255, 255);
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-box {
+        max-width: 1000px;
+        margin: auto;
+        padding: 50px;
+        background: #ffffff;
+        border: 10px solid #f2f2f2;
+    }
+
+    h1,
+    p {
+        text-align: center;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        height: auto;
+    }
+</style>
